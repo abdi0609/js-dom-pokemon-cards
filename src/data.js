@@ -1,4 +1,6 @@
+
 const data = [
+
   {
     name: "bulbasaur",
     sprites: {
