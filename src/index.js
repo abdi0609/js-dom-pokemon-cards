@@ -5,43 +5,30 @@ console.log(data);
 //pokemon card from the first element
 console.log(data[0]);
 
-// Hent HTML-elementene
-const cardsContainer = document.querySelector('.cards');
+const cards=  document.querySelector(".cards");
+for(let x = 0;x < data.length;x++){
+  const card= document.createElement("li");
+  card.classList.add("card");
+  const title = document.createElement("h2");
+  title.classList.add("card--title");
+  const image = document.createElement("img");
+  image.classList.add("card--img");
+  const content = document.createElement("ul")
+  content.classList.add("card--text")
+  title.innerText=data[x].name;
+  image.src=data[x].sprites.other["official-artwork"].front_default;
+  for(let i=0; i< data[x].stats.length;i++){
+    const stat= document.createElement("li");
+    stat.innerText= `${data[x].stats[i].stat.name} : ${data[x].stats[i].base_stat}`;
+    content.append(stat);
 
-// Funksjon for å lage et kort
-function createCard(pokemon) {
-  // Lag et nytt kort fra HTML-strukturen
-  const card = document.createElement('li');
-  card.classList.add('card');
-  
-  // Sett inn Pokémon-navn
-  const title = document.createElement('h2');
-  title.classList.add('card--title');
-  title.textContent = pokemon.name;
-  card.appendChild(title);
-  
-  // Sett inn Pokémon bilde
-  const image = document.createElement('img');
-  image.classList.add('card--img');
-  image.src = pokemon.sprites.front_default;
-  image.width = 256;
-  card.appendChild(image);
-  
-  // Sett inn Pokémon stats
-  const statsList = document.createElement('ul');
-  statsList.classList.add('card--text');
-  
-  pokemon.stats.forEach(stat => {
-    const statItem = document.createElement('li');
-    statItem.textContent = `${stat.stat.name.toUpperCase()}: ${stat.base_stat}`;
-    statsList.appendChild(statItem);
-  });
-  
-  card.appendChild(statsList);
-  
-  // Legg til kortet i containeren
-  cardsContainer.appendChild(card);
+  }
+  card.append(title);
+  card.append(image);
+  card.append(content);
+  cards.append(card);
+
+
 }
 
-// Opprett kort for hver Pokémon i dataene
-data.forEach(pokemon => createCard(pokemon));
+
